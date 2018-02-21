@@ -1,0 +1,77 @@
+{
+  "consumer": {
+    "name": "ui"
+  },
+  "provider": {
+    "name": "product_provider"
+  },
+  "interactions": [
+    {
+      "description": "a request to save product",
+      "providerState": "provider accepts a new product",
+      "request": {
+        "method": "POST",
+        "path": "/api/products",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "productId": 1,
+          "productName": "a product name"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "productId": 13,
+          "productName": "text"
+        },
+        "matchingRules": {
+          "$.body.productId": {
+            "match": "type"
+          },
+          "$.body.productName": {
+            "match": "type"
+          }
+        }
+      }
+    },
+    {
+      "description": "a request to list products",
+      "providerState": "provider has products to provide",
+      "request": {
+        "method": "GET",
+        "path": "/api/products",
+        "headers": {
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": [
+          {
+            "productId": 1,
+            "productName": "a product name"
+          }
+        ],
+        "matchingRules": {
+          "$.body": {
+            "min": 1
+          },
+          "$.body[*].*": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}
